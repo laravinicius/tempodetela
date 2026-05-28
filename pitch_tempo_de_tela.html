@@ -1,0 +1,302 @@
+
+<h2 class="sr-only">Script interativo de pitch para o app Tempo de Tela — 5 minutos, 2 apresentadores</h2>
+
+<style>
+  :root {
+    --vt: #0F6E56;
+    --vt-light: #E1F5EE;
+    --gd: #185FA5;
+    --gd-light: #E6F1FB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  #app { padding: 1rem 0 2rem; }
+
+  .header { margin-bottom: 1.5rem; }
+  .header h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .header p { font-size: 13px; color: var(--color-text-secondary); }
+
+  .legend { display: flex; gap: 16px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--color-text-secondary); }
+  .badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+  .badge-vt { background: var(--vt-light); color: var(--vt); }
+  .badge-gd { background: var(--gd-light); color: var(--gd); }
+  .badge-amb { background: #FAEEDA; color: #854F0B; }
+
+  .section { margin-bottom: 1.5rem; }
+  .section-title { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 0.5px; background: var(--color-border-tertiary); }
+  .section-meta { font-size: 12px; color: var(--color-text-tertiary); margin-left: 8px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); margin-bottom: 8px; overflow: hidden; transition: border-color 0.15s; }
+  .card:hover { border-color: var(--color-border-secondary); }
+  .card-header { padding: 10px 14px; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; user-select: none; }
+  .card-header .time { font-size: 11px; color: var(--color-text-tertiary); min-width: 36px; padding-top: 2px; font-variant-numeric: tabular-nums; }
+  .card-body { flex: 1; }
+  .card-speaker { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+  .card-text { font-size: 14px; color: var(--color-text-primary); line-height: 1.55; }
+  .card-note { font-size: 12px; color: var(--color-text-tertiary); font-style: italic; margin-top: 4px; }
+  .card-expand { padding: 0 14px 12px 60px; border-top: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
+  .card-expand p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; padding-top: 10px; }
+  .card-expand strong { font-weight: 500; color: var(--color-text-primary); }
+  .chevron { font-size: 14px; color: var(--color-text-tertiary); transition: transform 0.2s; margin-left: auto; padding-top: 2px; flex-shrink: 0; }
+  .chevron.open { transform: rotate(180deg); }
+
+  .screen-block { margin-top: 10px; }
+  .screen-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .screen-label i { font-size: 13px; }
+  .screen-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 8px 12px; }
+
+  .progress-bar { height: 3px; background: var(--color-border-tertiary); border-radius: 99px; margin-bottom: 1.5rem; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--vt); border-radius: 99px; width: 0%; transition: width 0.4s ease; }
+
+  .tip-box { background: #FAEEDA; border: 0.5px solid #FAC775; border-radius: var(--border-radius-md); padding: 10px 14px; margin-bottom: 1.5rem; font-size: 13px; color: #854F0B; display: flex; gap: 8px; align-items: flex-start; }
+  .tip-box i { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+</style>
+
+<div id="app">
+  <div class="header">
+    <h1>Script de pitch — Tempo de Tela</h1>
+    <p>5 minutos · 2 apresentadores · clique em uma fala para ver o texto de apoio da tela</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="badge badge-vt"><i class="ti ti-user" aria-hidden="true"></i> Vinicius</span> Apresentador 1</div>
+    <div class="legend-item"><span class="badge badge-gd"><i class="ti ti-user" aria-hidden="true"></i> Gabriel</span> Apresentador 2</div>
+    <div class="legend-item"><span class="badge badge-amb"><i class="ti ti-device-mobile" aria-hidden="true"></i></span> Contém texto de tela</div>
+  </div>
+
+  <div class="tip-box">
+    <i class="ti ti-info-circle" aria-hidden="true"></i>
+    <span>Dica: clique nas falas marcadas com <strong>📱</strong> para ver o texto sugerido ao lado de cada tela do protótipo durante a apresentação.</span>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <div id="sections"></div>
+</div>
+
+<script>
+const data = [
+  {
+    title: "Abertura — o problema",
+    duration: "0:00 – 0:50",
+    cards: [
+      {
+        time: "0:00",
+        speaker: "vt",
+        text: "Vocês já perceberam que às vezes abrem o celular pra ver as horas… e 40 minutos depois ainda estão no feed? Isso acontece porque os aplicativos são projetados pra isso — pra te manter preso.",
+        note: null,
+        screen: null
+      },
+      {
+        time: "0:18",
+        speaker: "gd",
+        text: "Hoje, adultos brasileiros passam em média 9 horas por dia em frente a telas. Estudantes universitários são um dos grupos mais afetados. A concentração cai, o sono piora, a produtividade some.",
+        note: null,
+        screen: null
+      },
+      {
+        time: "0:36",
+        speaker: "vt",
+        text: "As ferramentas que existem hoje são fáceis de burlar — uma notificação, um toque e o bloqueio sumiu. Isso não resolve o problema, só cria uma ilusão de controle.",
+        note: null,
+        screen: null
+      }
+    ]
+  },
+  {
+    title: "A solução — o app",
+    duration: "0:50 – 1:30",
+    cards: [
+      {
+        time: "0:50",
+        speaker: "gd",
+        text: "Por isso desenvolvemos o Tempo de Tela — um aplicativo de foco que usa um mecanismo de desbloqueio por fricção intencional. Não basta querer sair. Você precisa provar que está ciente da sua escolha.",
+        note: "Abrir o app no protótipo",
+        screen: {
+          label: "Tela inicial",
+          text: "\"Tempo de Tela é um app de gerenciamento de foco pessoal. Aqui você define por quanto tempo quer se concentrar e inicia uma sessão de bloqueio. O app registra suas sessões, mantém seu histórico e conecta você com amigos para criar uma rede de accountability.\""
+        }
+      },
+      {
+        time: "1:08",
+        speaker: "vt",
+        text: "Ele foi projetado como um protótipo funcional e interativo. Você pode usar agora mesmo. Vamos mostrar como funciona na prática.",
+        note: null,
+        screen: null
+      }
+    ]
+  },
+  {
+    title: "Demonstração — fluxo principal",
+    duration: "1:30 – 3:10",
+    cards: [
+      {
+        time: "1:30",
+        speaker: "gd",
+        text: "Chegando no app, você vê um painel pessoal: o tempo de foco acumulado hoje, o número de sessões e o seu recorde. É a sua linha de base — o que você quer melhorar.",
+        note: "Navegar para tela Início",
+        screen: {
+          label: "Tela Início",
+          text: "\"Esse é o seu painel. Os números são os seus — hoje, 2h14 de foco em 3 sessões, com recorde de 4h. Abaixo, você configura a próxima sessão: define horas e minutos, ou usa os atalhos rápidos — 15 min, 30 min, 1 hora, 2 horas — e aperta Iniciar bloqueio.\""
+        }
+      },
+      {
+        time: "1:52",
+        speaker: "vt",
+        text: "Clicando em Iniciar bloqueio, o app entra em modo de foco. Aparece um timer contando o tempo restante e uma mensagem de incentivo. O celular fica bloqueado.",
+        note: "Iniciar uma sessão de bloqueio",
+        screen: {
+          label: "Tela de sessão ativa",
+          text: "\"Durante a sessão, você vê quanto tempo ainda resta — aqui, 30 minutos — e a frase: Mantenha o foco. Você consegue. Existe um botão Desbloquear, mas usá-lo tem um custo intencional.\""
+        }
+      },
+      {
+        time: "2:12",
+        speaker: "gd",
+        text: "E aqui está o diferencial. Se você tentar desbloquear antes do tempo, o app não simplesmente abre. Ele exibe um modal pedindo que você digite uma frase específica para confirmar que está ciente do que está fazendo.",
+        note: "Clicar em Desbloquear",
+        screen: {
+          label: "Modal de desbloqueio",
+          text: "\"Para sair da sessão antes do tempo, o app pede que você escreva: 'Estou ciente sobre o desbloqueio'. Não é uma senha aleatória — é uma frase que força você a parar, ler e assumir a responsabilidade pela decisão. Isso chama fricção intencional.\""
+        }
+      },
+      {
+        time: "2:38",
+        speaker: "vt",
+        text: "Esse mecanismo é baseado em pesquisas de design comportamental — inserir atrito consciente em decisões impulsivas reduz o comportamento indesejado significativamente.",
+        note: null,
+        screen: null
+      }
+    ]
+  },
+  {
+    title: "Funcionalidades sociais e histórico",
+    duration: "3:10 – 3:55",
+    cards: [
+      {
+        time: "3:10",
+        speaker: "gd",
+        text: "O app também tem uma dimensão social. Na aba Amigos, você adiciona contatos pelo código único de cada usuário e acompanha o foco deles.",
+        note: "Navegar para aba Amigos",
+        screen: {
+          label: "Aba Amigos",
+          text: "\"Na aba de Amigos, você insere o código de um contato para adicioná-lo à sua rede. Isso cria um componente de accountability — você vê quem está focado e isso te motiva a manter a sessão ativa também.\""
+        }
+      },
+      {
+        time: "3:28",
+        speaker: "vt",
+        text: "E no Histórico, você acompanha seu foco diário nos últimos 5 dias em um gráfico visual. É onde você enxerga o progresso — ou onde sente a falta dele.",
+        note: "Navegar para aba Histórico",
+        screen: {
+          label: "Aba Histórico",
+          text: "\"O gráfico de foco diário mostra os últimos 5 dias de forma visual. Você consegue identificar padrões — dias com mais foco, dias que fugiram da meta — e usa isso como motivação para o dia seguinte.\""
+        }
+      }
+    ]
+  },
+  {
+    title: "Tecnologia e encerramento",
+    duration: "3:55 – 5:00",
+    cards: [
+      {
+        time: "3:55",
+        speaker: "gd",
+        text: "Do ponto de vista técnico, o app é um protótipo interativo desenvolvido em HTML, CSS e JavaScript, publicado via Vercel. O design é responsivo, com navegação entre telas, gestão de estado local e um timer funcional em tempo real.",
+        note: null,
+        screen: {
+          label: "Aba Sobre",
+          text: "\"Desenvolvido por Vinicius Lara e Gabriel Dornela como projeto acadêmico, o Tempo de Tela representa uma exploração prática de design comportamental aplicado à tecnologia de bem-estar digital.\""
+        }
+      },
+      {
+        time: "4:18",
+        speaker: "vt",
+        text: "Quais são os próximos passos? Integração com APIs de bloqueio nativo do sistema operacional, notificações push, ranking entre amigos e versão mobile publicada nas stores.",
+        note: null,
+        screen: null
+      },
+      {
+        time: "4:35",
+        speaker: "gd",
+        text: "O Tempo de Tela não tenta ser mais um app no celular que você ignora. Ele tenta ser o app que te ajuda a ignorar todos os outros.",
+        note: "Frase de impacto — pausa",
+        screen: null
+      },
+      {
+        time: "4:45",
+        speaker: "vt",
+        text: "Obrigado. O protótipo está disponível para vocês acessarem agora. O link está no slide. Ficamos à disposição para perguntas.",
+        note: null,
+        screen: null
+      }
+    ]
+  }
+];
+
+function render() {
+  const container = document.getElementById('sections');
+  let totalCards = 0;
+  data.forEach(s => totalCards += s.cards.length);
+
+  data.forEach((section, si) => {
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.innerHTML = `<div class="section-title">${section.title}<span class="section-meta">${section.duration}</span></div>`;
+
+    section.cards.forEach((card, ci) => {
+      const isAmb = card.screen !== null;
+      const el = document.createElement('div');
+      el.className = 'card';
+
+      const speakerLabel = card.speaker === 'vt'
+        ? `<span class="badge badge-vt"><i class="ti ti-user" aria-hidden="true"></i> Vinicius</span>`
+        : `<span class="badge badge-gd"><i class="ti ti-user" aria-hidden="true"></i> Gabriel</span>`;
+
+      el.innerHTML = `
+        <div class="card-header">
+          <span class="time">${card.time}</span>
+          <div class="card-body">
+            <div class="card-speaker">${speakerLabel}${isAmb ? ' <span class="badge badge-amb"><i class="ti ti-device-mobile" style="font-size:11px" aria-hidden="true"></i></span>' : ''}</div>
+            <div class="card-text">${card.text}</div>
+            ${card.note ? `<div class="card-note"><i class="ti ti-arrow-right" aria-hidden="true"></i> ${card.note}</div>` : ''}
+          </div>
+          ${isAmb ? `<i class="ti ti-chevron-down chevron" aria-hidden="true"></i>` : ''}
+        </div>
+        ${isAmb ? `<div class="card-expand" style="display:none">
+          <div class="screen-block">
+            <div class="screen-label"><i class="ti ti-device-mobile" aria-hidden="true"></i> Texto ao lado da tela — ${card.screen.label}</div>
+            <div class="screen-text">${card.screen.text}</div>
+          </div>
+        </div>` : ''}
+      `;
+
+      if (isAmb) {
+        el.querySelector('.card-header').addEventListener('click', () => {
+          const expand = el.querySelector('.card-expand');
+          const chev = el.querySelector('.chevron');
+          const open = expand.style.display === 'block';
+          expand.style.display = open ? 'none' : 'block';
+          chev.classList.toggle('open', !open);
+          updateProgress();
+        });
+      }
+
+      sec.appendChild(el);
+    });
+
+    container.appendChild(sec);
+  });
+}
+
+function updateProgress() {
+  const opens = document.querySelectorAll('.card-expand[style*="block"]').length;
+  const total = document.querySelectorAll('.card-expand').length;
+  const pct = total > 0 ? Math.round((opens / total) * 100) : 0;
+  document.getElementById('progress').style.width = pct + '%';
+}
+
+render();
+</script>
