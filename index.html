@@ -12,7 +12,18 @@
 <body>
   <h2 class="sr-only">Protótipo interativo do app Tempo de Tela com tela inicial, timer de bloqueio e modal de desbloqueio.</h2>
 
-  <div class="app-shell">
+  <div class="split-container">
+    <div class="pane pane-left">
+      <div class="left-content">
+        <h3>Painel Esquerdo</h3>
+        <p>Conteúdo adicional ou visualização.</p>
+      </div>
+    </div>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="pane pane-right">
+      <div class="app-shell">
     <div class="notch"></div>
     <div class="success-toast" id="toast">✓ Tela desbloqueada!</div>
 
@@ -104,6 +115,8 @@
             <button class="btn-confirm" onclick="confirmUnlock()">Confirmar</button>
           </div>
         </div>
+      </div>
+    </div>
       </div>
     </div>
   </div>
