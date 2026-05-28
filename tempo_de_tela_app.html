@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tempo de Tela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="tempo_de_tela_app.css" />
+</head>
+<body>
+  <h2 class="sr-only">Protótipo interativo do app Tempo de Tela com tela inicial, timer de bloqueio e modal de desbloqueio.</h2>
+
+  <div class="app-shell">
+    <div class="notch"></div>
+    <div class="success-toast" id="toast">✓ Tela desbloqueada!</div>
+
+    <div class="screen active" id="homeScreen">
+      <div class="home-header">
+        <div class="icon-btn" aria-label="Menu" title="Menu">
+          <i class="ti ti-menu-2" aria-hidden="true"></i>
+        </div>
+        <span class="app-title">Tempo de Tela</span>
+        <div class="avatar" title="Perfil">VC</div>
+      </div>
+
+      <div class="home-body">
+        <div class="greeting">
+          <p>Bem-vindo de volta 👋</p>
+          <h2>Quanto tempo você quer <span>focar hoje?</span></h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <p class="s-label">Hoje</p>
+            <p class="s-value">2<span class="s-unit">h</span> 14<span class="s-unit">m</span></p>
+          </div>
+          <div class="stat-card">
+            <p class="s-label">Sessões</p>
+            <p class="s-value">3</p>
+          </div>
+          <div class="stat-card">
+            <p class="s-label">Recorde</p>
+            <p class="s-value">4<span class="s-unit">h</span></p>
+          </div>
+        </div>
+
+        <div class="config-card">
+          <h3>Configurar bloqueio</h3>
+          <div class="time-inputs">
+            <div class="time-field">
+              <label for="inputHours">horas</label>
+              <input class="time-input" id="inputHours" type="number" min="0" max="23" value="00" placeholder="00" />
+            </div>
+            <div class="time-sep">:</div>
+            <div class="time-field">
+              <label for="inputMinutes">minutos</label>
+              <input class="time-input" id="inputMinutes" type="number" min="0" max="59" value="30" placeholder="30" />
+            </div>
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" onclick="setTime(0,15)">15 min</button>
+            <button class="quick-btn" onclick="setTime(0,30)">30 min</button>
+            <button class="quick-btn" onclick="setTime(1,0)">1 hora</button>
+            <button class="quick-btn" onclick="setTime(2,0)">2 horas</button>
+          </div>
+        </div>
+
+        <button class="start-btn" onclick="startBlock()">
+          <i class="ti ti-player-play" aria-hidden="true"></i>
+          Iniciar bloqueio
+        </button>
+      </div>
+    </div>
+
+    <div class="screen" id="lockScreen">
+      <div class="lock-bg"></div>
+      <div class="lock-content">
+        <div class="lock-icon">
+          <i class="ti ti-lock" aria-hidden="true"></i>
+        </div>
+        <p class="lock-label">em sessão de foco</p>
+        <div class="timer-display" id="timerDisplay">00:30:00</div>
+        <p class="timer-sub">Mantenha o foco. Você consegue.</p>
+        <button class="unlock-btn" onclick="openModal()">
+          <i class="ti ti-lock-open" aria-hidden="true"></i>
+          Desbloquear
+        </button>
+      </div>
+
+      <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-sheet">
+          <div class="modal-handle"></div>
+          <p class="modal-title">Confirmar desbloqueio</p>
+          <p class="modal-desc">Para encerrar a sessão antes do tempo, confirme que está ciente digitando a frase abaixo:</p>
+          <div class="modal-phrase">
+            <p>"Estou ciente sobre o desbloqueio"</p>
+          </div>
+          <input class="phrase-input" id="phraseInput" type="text" placeholder="Digite a frase aqui..." autocomplete="off" />
+          <p class="error-msg" id="errorMsg">Frase incorreta. Tente novamente.</p>
+          <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+            <button class="btn-confirm" onclick="confirmUnlock()">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="tempo_de_tela_app.js"></script>
+</body>
+</html>
