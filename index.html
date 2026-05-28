@@ -27,11 +27,20 @@
     <div class="notch"></div>
     <div class="success-toast" id="toast">✓ Tela desbloqueada!</div>
 
+    <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+      <nav class="menu-panel" id="menuPanel" aria-label="Menu principal">
+        <button class="menu-item" type="button" data-menu-item="inicio">Início</button>
+        <button class="menu-item" type="button" data-menu-item="amigos">Amigos</button>
+        <button class="menu-item" type="button" data-menu-item="historico">Histórico</button>
+        <button class="menu-item" type="button" data-menu-item="sobre">Sobre</button>
+      </nav>
+    </div>
+
     <div class="screen active" id="homeScreen">
       <div class="home-header">
-        <div class="icon-btn" aria-label="Menu" title="Menu">
+        <button class="icon-btn" data-menu-toggle type="button" aria-label="Menu" aria-expanded="false" title="Menu">
           <i class="ti ti-menu-2" aria-hidden="true"></i>
-        </div>
+        </button>
         <span class="app-title">Tempo de Tela</span>
         <div class="avatar" title="Perfil">VC</div>
       </div>
@@ -82,6 +91,58 @@
           <i class="ti ti-player-play" aria-hidden="true"></i>
           Iniciar bloqueio
         </button>
+      </div>
+    </div>
+
+    <div class="screen" id="amigosScreen">
+      <div class="home-header">
+        <button class="icon-btn" data-menu-toggle type="button" aria-label="Menu" aria-expanded="false" title="Menu">
+          <i class="ti ti-menu-2" aria-hidden="true"></i>
+        </button>
+        <span class="app-title">Amigos</span>
+        <div class="avatar" title="Perfil">VC</div>
+      </div>
+
+      <div class="amigos-body">
+        <div class="friend-search-wrap">
+          <i class="ti ti-search" aria-hidden="true"></i>
+          <input class="friend-search" id="friendSearch" type="text" placeholder="Buscar por nome" autocomplete="off" />
+        </div>
+
+        <div class="friends-list" id="friendsList"></div>
+
+        <button class="friend-fab" id="addFriendButton" type="button" aria-label="Adicionar amigo" title="Adicionar amigo">
+          <i class="ti ti-plus" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="friend-modal-overlay" id="friendModalOverlay" aria-hidden="true">
+        <div class="friend-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="friendModalTitle">
+          <div class="modal-handle"></div>
+          <p class="modal-title" id="friendModalTitle">Adicionar amigo</p>
+          <p class="modal-desc">Insira o código do amigo para adicionar o contato.</p>
+          <input class="phrase-input" id="friendCodeInput" type="text" placeholder="Digite o código do amigo" autocomplete="off" />
+          <p class="error-msg" id="friendCodeError">Informe um código válido.</p>
+          <div class="modal-actions">
+            <button class="btn-cancel" id="cancelFriendModal" type="button">Cancelar</button>
+            <button class="btn-confirm" id="confirmFriendModal" type="button">Adicionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" id="historicoScreen">
+      <div class="home-header">
+        <button class="icon-btn" data-menu-toggle type="button" aria-label="Menu" aria-expanded="false" title="Menu">
+          <i class="ti ti-menu-2" aria-hidden="true"></i>
+        </button>
+        <span class="app-title">Histórico</span>
+        <div class="avatar" title="Perfil">VC</div>
+      </div>
+
+      <div class="historico-body">
+        <p class="history-caption">Foco diário dos últimos 5 dias</p>
+        <div class="history-list" id="historyList"></div>
       </div>
     </div>
 
