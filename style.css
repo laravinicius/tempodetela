@@ -103,6 +103,9 @@ body {
 }
 
 .avatar {
+  appearance: none;
+  padding: 0;
+  border: 2px solid #1e1e2e;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -114,7 +117,6 @@ body {
   font-weight: 600;
   color: #fff;
   cursor: pointer;
-  border: 2px solid #1e1e2e;
 }
 
 .home-body {
@@ -284,6 +286,149 @@ body {
   flex-direction: column;
   gap: 14px;
   overflow-y: auto;
+}
+
+.sobre-body {
+  flex: 1;
+  padding: 24px 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfil-body {
+  flex: 1;
+  padding: 16px 20px 28px;
+  overflow-y: auto;
+}
+
+.profile-card {
+  background: linear-gradient(180deg, #171726 0%, #10101a 100%);
+  border: 1px solid #23233a;
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profile-photo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-photo {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+  border: 4px solid #23233a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.profile-photo-button {
+  appearance: none;
+  border: 1px solid #2a2a4a;
+  background: #14141f;
+  color: #e8e8f0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.profile-file-input {
+  display: none;
+}
+
+.profile-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #8f90c1;
+  font-size: 12px;
+}
+
+.profile-field span {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.profile-field input {
+  width: 100%;
+  background: #0d0d1a;
+  border: 1.5px solid #2a2a4a;
+  border-radius: 14px;
+  color: #e8e8f0;
+  font-family: 'Sora', sans-serif;
+  font-size: 14px;
+  padding: 14px 16px;
+  outline: none;
+}
+
+.profile-field input:focus {
+  border-color: #6366f1;
+}
+
+.profile-save-btn {
+  appearance: none;
+  border: none;
+  border-radius: 16px;
+  padding: 16px;
+  background: linear-gradient(180deg, #6366f1 0%, #4f52d4 100%);
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-save-btn:hover {
+  filter: brightness(1.05);
+}
+
+.profile-save-btn:active {
+  transform: scale(0.98);
+}
+
+.about-card {
+  width: 100%;
+  background: linear-gradient(180deg, #171726 0%, #10101a 100%);
+  border: 1px solid #23233a;
+  border-radius: 22px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.24);
+}
+
+.about-label {
+  margin: 0 0 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #7e7eb2;
+}
+
+.about-card h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #f3f4ff;
 }
 
 .history-caption {
@@ -896,13 +1041,12 @@ body {
   overflow-x: hidden;
 }
 
-/* Fazer o painel direito maior que o esquerdo */
+/* Layout dividido: painéis com largura igual (50/50) */
 .pane-left {
-  /* 60% para o painel esquerdo */
-  flex: 0 0 60%;
-  max-width: 60%;
-  min-width: 260px;  /* evita colapso extremo
-                       em janelas muito pequenas */
+  /* 50% para o painel esquerdo */
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 260px;  /* evita colapso extremo em janelas muito pequenas */
   padding: 28px;
   color: #d6d6e8;
   overflow-y: auto;
@@ -910,10 +1054,10 @@ body {
 }
 
 .pane-right {
-  /* 40% para o painel direito */
-  flex: 0 0 40%;
-  max-width: 40%;
-  min-width: 320px;
+  /* 50% para o painel direito */
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 260px;
   padding: 24px;
   overflow-y: auto;
   overflow-x: hidden;

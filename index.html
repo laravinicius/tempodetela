@@ -42,7 +42,7 @@
           <i class="ti ti-menu-2" aria-hidden="true"></i>
         </button>
         <span class="app-title">Tempo de Tela</span>
-        <div class="avatar" title="Perfil">VC</div>
+        <button class="avatar" data-profile-toggle type="button" title="Perfil">VC</button>
       </div>
 
       <div class="home-body">
@@ -100,7 +100,7 @@
           <i class="ti ti-menu-2" aria-hidden="true"></i>
         </button>
         <span class="app-title">Amigos</span>
-        <div class="avatar" title="Perfil">VC</div>
+        <button class="avatar" data-profile-toggle type="button" title="Perfil">VC</button>
       </div>
 
       <div class="amigos-body">
@@ -137,12 +137,68 @@
           <i class="ti ti-menu-2" aria-hidden="true"></i>
         </button>
         <span class="app-title">Histórico</span>
-        <div class="avatar" title="Perfil">VC</div>
+        <button class="avatar" data-profile-toggle type="button" title="Perfil">VC</button>
       </div>
 
       <div class="historico-body">
         <p class="history-caption">Foco diário dos últimos 5 dias</p>
         <div class="history-list" id="historyList"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="sobreScreen">
+      <div class="home-header">
+        <button class="icon-btn" data-menu-toggle type="button" aria-label="Menu" aria-expanded="false" title="Menu">
+          <i class="ti ti-menu-2" aria-hidden="true"></i>
+        </button>
+        <span class="app-title">Sobre</span>
+        <button class="avatar" data-profile-toggle type="button" title="Perfil">VC</button>
+      </div>
+
+      <div class="sobre-body">
+        <div class="about-card">
+          <p class="about-label">Desenvolvido por</p>
+          <h2>Vinicius Lara e Gabriel Dornela</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" id="perfilScreen">
+      <div class="home-header">
+        <button class="icon-btn" data-back-home type="button" aria-label="Voltar" title="Voltar">
+          <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        </button>
+        <span class="app-title">Perfil</span>
+        <button class="avatar" data-profile-toggle type="button" title="Perfil">VC</button>
+      </div>
+
+      <div class="perfil-body">
+        <div class="profile-card">
+          <div class="profile-photo-wrap">
+            <div class="profile-photo" id="profilePhotoPreview">VC</div>
+            <button class="profile-photo-button" id="changePhotoButton" type="button">Alterar imagem</button>
+            <input class="profile-file-input" id="profilePhotoInput" type="file" accept="image/*" />
+          </div>
+
+          <div class="profile-fields">
+            <label class="profile-field">
+              <span>Nome</span>
+              <input id="profileNameInput" type="text" placeholder="Seu nome" />
+            </label>
+
+            <label class="profile-field">
+              <span>Email</span>
+              <input id="profileEmailInput" type="email" placeholder="seuemail@exemplo.com" />
+            </label>
+
+            <label class="profile-field">
+              <span>Senha</span>
+              <input id="profilePasswordInput" type="password" placeholder="Nova senha" />
+            </label>
+          </div>
+
+          <button class="profile-save-btn" id="saveProfileButton" type="button">Salvar alterações</button>
+        </div>
       </div>
     </div>
 

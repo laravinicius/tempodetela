@@ -3,6 +3,13 @@ let intervalId = null;
 const PHRASE = 'estou ciente sobre o desbloqueio';
 let menuOpen = false;
 const WEEKDAY_SHORT = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
+const profileState = {
+  name: 'Vinicius Lara',
+  email: 'vinicius@example.com',
+  password: '',
+  photoUrl: '',
+  initials: 'VC'
+};
 
 const friends = [
   { name: 'Matheus', recordSeconds: 11100 },
@@ -120,6 +127,10 @@ function showScreen(id) {
   if (id === 'historicoScreen') {
     renderHistory();
   }
+
+  if (id === 'perfilScreen') {
+    renderProfileScreen();
+  }
 }
 
 function openMenu() {
@@ -147,6 +158,75 @@ function toggleMenu() {
   }
 
   openMenu();
+}
+
+function getInitials(name) {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part[0].toUpperCase())
+    .join('');
+}
+
+function syncAvatars() {
+  document.querySelectorAll('.avatar').forEach(avatar => {
+    avatar.textContent = profileState.initials;
+    avatar.style.backgroundImage = profileState.photoUrl ? 'url("' + profileState.photoUrl + '")' : '';
+    avatar.style.backgroundSize = profileState.photoUrl ? 'cover' : '';
+    avatar.style.backgroundPosition = profileState.photoUrl ? 'center' : '';
+    avatar.style.backgroundRepeat = profileState.photoUrl ? 'no-repeat' : '';
+  });
+}
+
+function renderProfileScreen() {
+  document.getElementById('profileNameInput').value = profileState.name;
+  document.getElementById('profileEmailInput').value = profileState.email;
+  document.getElementById('profilePasswordInput').value = profileState.password;
+
+  const photoPreview = document.getElementById('profilePhotoPreview');
+  photoPreview.textContent = profileState.initials;
+  photoPreview.style.backgroundImage = profileState.photoUrl ? 'url("' + profileState.photoUrl + '")' : '';
+  photoPreview.style.backgroundSize = profileState.photoUrl ? 'cover' : '';
+  photoPreview.style.backgroundPosition = profileState.photoUrl ? 'center' : '';
+  photoPreview.style.backgroundRepeat = profileState.photoUrl ? 'no-repeat' : '';
+}
+
+function openProfileScreen() {
+  showScreen('perfilScreen');
+}
+
+function saveProfile() {
+  const nameInput = document.getElementById('profileNameInput');
+  const emailInput = document.getElementById('profileEmailInput');
+  const passwordInput = document.getElementById('profilePasswordInput');
+
+  profileState.name = nameInput.value.trim() || profileState.name;
+  profileState.email = emailInput.value.trim() || profileState.email;
+  profileState.password = passwordInput.value;
+  profileState.initials = getInitials(profileState.name) || 'VC';
+
+  renderProfileScreen();
+  syncAvatars();
+  showToastMessage('Perfil atualizado.');
+}
+
+function handleProfilePhotoChange(event) {
+  const file = event.target.files && event.target.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    profileState.photoUrl = String(reader.result || '');
+    renderProfileScreen();
+    syncAvatars();
+  };
+
+  reader.readAsDataURL(file);
 }
 
 function openModal() {
@@ -292,6 +372,14 @@ document.querySelectorAll('[data-menu-toggle]').forEach(button => {
   button.addEventListener('click', toggleMenu);
 });
 
+document.querySelectorAll('[data-profile-toggle]').forEach(button => {
+  button.addEventListener('click', openProfileScreen);
+});
+
+document.querySelectorAll('[data-back-home]').forEach(button => {
+  button.addEventListener('click', () => showScreen('homeScreen'));
+});
+
 document.getElementById('menuOverlay').addEventListener('click', event => {
   if (event.target === event.currentTarget) {
     closeMenu();
@@ -317,6 +405,11 @@ document.querySelectorAll('[data-menu-item]').forEach(item => {
       return;
     }
 
+    if (target === 'sobre') {
+      showScreen('sobreScreen');
+      return;
+    }
+
     closeMenu();
     showToastMessage('Seção disponível em breve.');
   });
@@ -339,6 +432,13 @@ document.getElementById('friendCodeInput').addEventListener('keydown', event => 
     confirmAddFriend();
   }
 });
+
+document.getElementById('changePhotoButton').addEventListener('click', () => {
+  document.getElementById('profilePhotoInput').click();
+});
+
+document.getElementById('profilePhotoInput').addEventListener('change', handleProfilePhotoChange);
+document.getElementById('saveProfileButton').addEventListener('click', saveProfile);
 
 document.getElementById('inputHours').addEventListener('input', function () {
   const value = parseInt(this.value);
@@ -366,3 +466,4 @@ document.getElementById('inputMinutes').addEventListener('input', function () {
 
 renderFriends();
 renderHistory();
+syncAvatars();
